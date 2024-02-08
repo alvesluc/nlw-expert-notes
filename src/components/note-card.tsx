@@ -4,12 +4,14 @@ import { X } from "lucide-react";
 
 interface NoteCardPros {
   note: {
+    id: string;
     date: Date;
     content: string;
   };
+  onNoteDeleted: (id: string) => void;
 }
 
-export function NoteCard({ note }: NoteCardPros) {
+export function NoteCard({ note, onNoteDeleted }: NoteCardPros) {
   return (
     <Dialog.Root>
       <Dialog.Trigger className="rounded-md text-left flex flex-col bg-slate-800 p-5 gap-3 overflow-hidden relative outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
@@ -22,7 +24,7 @@ export function NoteCard({ note }: NoteCardPros) {
 
       <Dialog.Portal>
         <Dialog.Overlay className="inset-0 fixed bg-black/50" />
-        <Dialog.Content className="flex overflow-hidden flex-col fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full h-[60vh] bg-slate-700 rounded-md outline-none">
+        <Dialog.Content className="flex overflow-hidden inset-0 md:inset-auto flex-col fixed md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md outline-none">
           <Dialog.Close className="absolute top-0 right-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-200">
             <X className="size-5" />
           </Dialog.Close>
@@ -36,6 +38,7 @@ export function NoteCard({ note }: NoteCardPros) {
           </div>
           <button
             type="button"
+            onClick={() => onNoteDeleted(note.id)}
             className="w-full bg-slate-800 py-4 text-center text-sm text-slate-300 outline-none font-medium group"
           >
             Deseja{" "}
